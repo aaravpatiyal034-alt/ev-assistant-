@@ -2,6 +2,7 @@
   "name": "E.V. Personal AI OS",
   "short_name": "E.V.",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#05070d",
   "theme_color": "#ff1e42",
