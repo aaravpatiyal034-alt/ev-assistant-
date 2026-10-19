@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>E.V. // SPIDER-MAN HUD</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#05070d;--panel:rgba(12,18,34,0.88);--red:#ff1e42;--glow:rgba(255,30,66,0.45);--blue:#00d2ff;--bdr:rgba(0,210,255,0.35);--txt:#e2f1ff}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);background-image:radial-gradient(circle at 50% 30%,rgba(255,30,66,0.16) 0%,transparent 55%);color:var(--txt);font-family:'Rajdhani',sans-serif;min-height:100vh}
+header{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-bottom:1px solid var(--red);box-shadow:0 2px 15px var(--glow);background:#05070d}
+.brand{display:flex;align-items:center;gap:8px;font-family:'Orbitron',sans-serif;font-weight:900;font-size:1.1rem}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--red);box-shadow:0 0 10px var(--red)}
+.st{font-size:0.75rem;color:var(--red);font-weight:700}
+.btn{background:rgba(255,30,66,0.22);border:1px solid var(--red);color:#fff;padding:8px 12px;border-radius:6px;font-family:'Orbitron',sans-serif;font-size:0.72rem;cursor:pointer}
+.btn.listening{background:var(--red);box-shadow:0 0 15px var(--red)}
+.grid{display:flex;flex-direction:column;gap:12px;padding:14px;max-width:560px;margin:0 auto}
+.orb-wrap{position:relative;width:200px;height:200px;display:flex;align-items:center;justify-content:center;margin:8px auto}
+.ring{position:absolute;inset:0;border-radius:50%;border:2px solid var(--red);box-shadow:0 0 25px var(--glow),inset 0 0 25px var(--glow);transition:0.3s}
+.ring.active{box-shadow:0 0 45px var(--red),inset 0 0 40px var(--red);transform:scale(1.05)}
+.web{position:absolute;width:86%;height:86%;opacity:0.45;animation:spin 40s linear infinite}
+.wave{display:flex;align-items:center;gap:4px;height:45px;z-index:3}
+.bar{width:4px;height:10px;background:var(--red);border-radius:2px;box-shadow:0 0 8px var(--red);transition:height 0.1s}
+.lbl{position:absolute;bottom:20px;font-family:'Orbitron',sans-serif;font-size:0.65rem;color:var(--red);letter-spacing:2px}
+.box,.card{background:var(--panel);border:1px solid var(--bdr);border-radius:8px;padding:12px}
+.box{border-left:3px solid var(--red)}
+.usr{font-size:0.82rem;color:#7a97b8;margin-bottom:4px}
+.ev{font-weight:700;word-break:break-word}
+.row{display:flex;gap:8px;width:100%}
+input{flex:1;background:#080d1a;border:1px solid var(--bdr);color:#fff;padding:10px;border-radius:6px;font-family:'Rajdhani',sans-serif;font-size:1rem;outline:none}
+.hdr{display:flex;justify-content:space-between;font-family:'Orbitron',sans-serif;font-size:0.75rem;color:var(--blue);margin-bottom:8px}
+ul{list-style:none;display:flex;flex-direction:column;gap:6px}
+li{background:rgba(255,255,255,0.04);border-left:2px solid var(--red);padding:7px 10px;border-radius:0 4px 4px 0;display:flex;justify-content:space-between;align-items:center}
+.del{background:none;border:none;color:#7a97b8;font-size:0.9rem}
+@keyframes spin{100%{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><span>E.V.</span><div class="dot"></div><span class="st" id="stTxt">ONLINE</span></div>
+  <button class="btn" onclick="toggleKey()">🔑 API KEY</button>
+</header>
+<main class="grid">
+  <div class="row" id="keyBar">
+    <input type="password" id="keyIn" placeholder="Paste Groq API Key (gsk_...)" />
+    <button class="btn" onclick="saveKey()">SAVE</button>
+  </div>
+  <div class="orb-wrap">
+    <div class="ring" id="ring"></div>
+    <svg class="web" viewBox="0 0 200 200">
+      <circle cx="100" cy="100" r="85" fill="none" stroke="#ff1e42" stroke-width="0.8" stroke-dasharray="4 4"/>
+      <circle cx="100" cy="100" r="60" fill="none" stroke="#00d2ff" stroke-width="0.7"/>
+      <circle cx="100" cy="100" r="35" fill="none" stroke="#ff1e42" stroke-width="0.7"/>
+      <line x1="100" y1="0" x2="100" y2="200" stroke="#ff1e42" stroke-width="0.5"/>
+      <line x1="0" y1="100" x2="200" y2="100" stroke="#ff1e42" stroke-width="0.5"/>
+    </svg>
+    <div class="wave"><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div></div>
+    <div class="lbl" id="orbLbl">STANDBY</div>
+  </div>
+  <div class="box">
+    <div class="usr" id="usrTxt">Type below or tap 🎙️ TALK...</div>
+    <div class="ev" id="evTxt">Paste your Groq API Key above and tap SAVE.</div>
+  </div>
+  <div class="row">
+    <button class="btn" id="micBtn" onclick="micClick()">🎙️ TALK</button>
+    <input type="text" id="txtIn" placeholder="Ask E.V. anything..." onkeydown="if(event.key==='Enter')sendTxt()" />
+    <button class="btn" onclick="sendTxt()">SEND</button>
+  </div>
+  <div class="card"><div class="hdr"><span>TASKS</span><span id="tCnt">1 QUEUED</span></div><ul id="tList"></ul></div>
+  <div class="card"><div class="hdr"><span id="rTitle">HOOKS & RESEARCH</span><span>INTEL</span></div><ul id="rList"><li>Ask E.V. for hooks or research notes.</li></ul></div>
+  <div class="card"><div class="hdr"><span>E.V. MEMORY</span><span>ACTIVE</span></div><ul id="mList"></ul></div>
+</main>
+<script>
+const getS=(k,f)=>{try{const v=localStorage.getItem(k);return v?JSON.parse(v):f}catch(e){return f}};
+const setS=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+let KEY=getS('ev_k',''),tasks=getS('ev_t',['Go to the gym']),mems=getS('ev_m',['Building E.V. on mobile']),resItems=[],wTimer=null,rec=null,chunks=[],isRec=false;
+
+function init(){
+  if(KEY){document.getElementById('keyIn').value=KEY;document.getElementById('keyBar').style.display='none';document.getElementById('evTxt').textContent='E.V. Online. Ready for command.';}
+  render();
+}
+function toggleKey(){const b=document.getElementById('keyBar');b.style.display=b.style.display==='none'?'flex':'none';}
+function saveKey(){
+  const v=document.getElementById('keyIn').value.trim();
+  if(!v.startsWith('gsk_')){document.getElementById('evTxt').textContent='⚠️ Key must start with gsk_';return;}
+  KEY=v;setS('ev_k',KEY);document.getElementById('keyBar').style.display='none';document.getElementById('evTxt').textContent='✅ Key saved! Speak or type below.';
+}
+function render(){
+  document.getElementById('tCnt').textContent=tasks.length+' QUEUED';
+  document.getElementById('tList').innerHTML=tasks.map((t,i)=>`<li><span>⚡ ${t}</span><button class="del" onclick="delT(${i})">✕</button></li>`).join('')||'<li>No tasks.</li>';
+  document.getElementById('mList').innerHTML=mems.map((m,i)=>`<li><span>🧠 ${m}</span><button class="del" onclick="delM(${i})">✕</button></li>`).join('');
+  if(resItems.length)document.getElementById('rList').innerHTML=resItems.map((r,i)=>`<li><span>${i===0?'★ ':''}${r}</span></li>`).join('');
+}
+function delT(i){tasks.splice(i,1);setS('ev_t',tasks);render();}
+function delM(i){mems.splice(i,1);setS('ev_m',mems);render();}
+function setOrb(s){
+  document.getElementById('stTxt').textContent=s;document.getElementById('orbLbl').textContent=s;
+  const r=document.getElementById('ring'),bs=document.querySelectorAll('.bar');clearInterval(wTimer);
+  if(s!=='ONLINE'&&s!=='STANDBY'){r.classList.add('active');wTimer=setInterval(()=>bs.forEach(b=>b.style.height=(Math.random()*34+6)+'px'),100);}
+  else{r.classList.remove('active');bs.forEach(b=>b.style.height='10px');}
+}
+function sendTxt(){
+  const i=document.getElementById('txtIn'),t=i.value.trim();if(!t)return;
+  i.value='';document.getElementById('usrTxt').textContent=`"${t}"`;askEV(t);
+}
+async function micClick(){
+  if(!KEY){toggleKey();return;}
+  const btn=document.getElementById('micBtn');
+  if(isRec&&rec){rec.stop();isRec=false;btn.classList.remove('listening');btn.textContent='🎙️ TALK';return;}
+  try{
+    const st=await navigator.mediaDevices.getUserMedia({audio:true});
+    chunks=[];rec=new MediaRecorder(st);
+    rec.ondataavailable=e=>{if(e.data.size>0)chunks.push(e.data);};
+    rec.onstop=async()=>{
+      st.getTracks().forEach(t=>t.stop());setOrb('THINKING');document.getElementById('evTxt').textContent='Transcribing...';
+      const fd=new FormData();fd.append('file',new Blob(chunks,{type:'audio/webm'}),'v.webm');fd.append('model','whisper-large-v3-turbo');
+      try{
+        const r=await fetch('https://api.groq.com/openai/v1/audio/transcriptions',{method:'POST',headers:{'Authorization':`Bearer ${KEY}`},body:fd});
+        const d=await r.json();
+        if(d.text){document.getElementById('usrTxt').textContent=`"${d.text.trim()}"`;askEV(d.text.trim());}
+        else{setOrb('ONLINE');document.getElementById('evTxt').textContent='Did not catch that.';}
+      }catch(e){setOrb('ONLINE');document.getElementById('evTxt').textContent='Mic Error: '+e.message;}
+    };
+    rec.start();isRec=true;btn.classList.add('listening');btn.textContent='⏹️ STOP';setOrb('LISTENING');
+    document.getElementById('evTxt').textContent='Listening... Tap ⏹️ STOP when done.';
+  }catch(e){document.getElementById('evTxt').textContent='⚠️ Allow microphone permission in Chrome.';}
+}
+async function askEV(p){
+  if(!KEY){toggleKey();return;}
+  setOrb('THINKING');document.getElementById('evTxt').textContent='Processing...';
+  const sys=`You are E.V., Spider-Man's AI assistant. Reply ONLY in valid JSON: {"spoken_reply":"1-2 sentence reply","new_task":"string or null","new_memory":"string or null","research_title":"string or null","research_items":["array of 3 hooks/notes or empty"]}`;
+  try{
+    const r=await fetch('https://api.groq.com/openai/v1/chat/completions',{
+      method:'POST',headers:{'Authorization':`Bearer ${KEY}`,'Content-Type':'application/json'},
+      body:JSON.stringify({model:'llama-3.3-70b-versatile',messages:[{role:'system',content:sys},{role:'user',content:p}],response_format:{type:'json_object'},temperature:0.5})
+    });
+    const d=await r.json();if(!r.ok)throw new Error(d.error?.message||'API Error');
+    const res=JSON.parse(d.choices[0].message.content);
+    if(res.new_task){tasks.unshift(res.new_task);setS('ev_t',tasks);}
+    if(res.new_memory){mems.unshift(res.new_memory);setS('ev_m',mems);}
+    if(res.research_items?.length){resItems=res.research_items;if(res.research_title)document.getElementById('rTitle').textContent=res.research_title.toUpperCase();}
+    render();const rep=res.spoken_reply||'Done.';document.getElementById('evTxt').textContent=rep;speak(rep);
+  }catch(e){setOrb('ONLINE');document.getElementById('evTxt').textContent='❌ '+e.message;}
+}
+function speak(t){
+  if(!('speechSynthesis' in window)){setOrb('ONLINE');return;}
+  try{window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.rate=1.05;u.pitch=1.08;u.onstart=()=>setOrb('SPEAKING');u.onend=()=>setOrb('ONLINE');u.onerror=()=>setOrb('ONLINE');window.speechSynthesis.speak(u);}catch(e){setOrb('ONLINE');}
+}
+init();
+</script>
+</body>
+</html>
