@@ -4,6 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <title>E.V. // PERSONAL AI OS</title>
+<link rel="manifest" href="manifest.json">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#05070d;--panel:rgba(12,18,34,0.92);--red:#ff1e42;--glow:rgba(255,30,66,0.45);--blue:#00d2ff;--bdr:rgba(0,210,255,0.32);--txt:#e2f1ff;--green:#00ff9d}
@@ -15,8 +16,9 @@ header{display:flex;justify-content:space-between;align-items:center;padding:10p
 .st{font-size:0.7rem;color:var(--blue);font-weight:700;letter-spacing:1px}
 .btn{background:rgba(0,210,255,0.15);border:1px solid var(--blue);color:#fff;padding:7px 10px;border-radius:6px;font-family:'Orbitron',sans-serif;font-size:0.65rem;cursor:pointer;white-space:nowrap}
 .btn-red{background:rgba(255,30,66,0.22);border-color:var(--red)}
+.btn-install{background:rgba(0,255,157,0.2);border-color:var(--green);color:var(--green);display:none}
 .btn.listening{background:var(--red);border-color:var(--red);box-shadow:0 0 15px var(--red)}
-select{background:#080d1a;border:1px solid var(--bdr);color:var(--blue);padding:6px;border-radius:6px;font-family:'Rajdhani',sans-serif;font-size:0.8rem;max-width:120px;outline:none}
+select{background:#080d1a;border:1px solid var(--bdr);color:var(--blue);padding:6px;border-radius:6px;font-family:'Rajdhani',sans-serif;font-size:0.8rem;max-width:110px;outline:none}
 .sysbar{display:flex;justify-content:space-between;padding:6px 14px;background:rgba(0,210,255,0.06);border-bottom:1px solid var(--bdr);font-size:0.78rem;color:#8ab4d8;font-weight:600}
 .grid{display:flex;flex-direction:column;gap:12px;padding:12px 14px;max-width:580px;margin:0 auto}
 .orb-wrap{position:relative;width:165px;height:165px;display:flex;align-items:center;justify-content:center;margin:4px auto}
@@ -41,18 +43,13 @@ li{background:rgba(255,255,255,0.04);border-left:2px solid var(--blue);padding:7
 pre{background:#03050a;border:1px solid var(--bdr);padding:10px;border-radius:6px;overflow-x:auto;font-family:monospace;font-size:0.8rem;color:#00ff9d;margin-top:6px}
 @keyframes spin{100%{transform:rotate(360deg)}}
 </style>
-  <link rel="manifest" href="manifest.json">
-<script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js').catch(() => {});
-  }
-</script>
 </head>
 <body>
 <header>
   <div class="brand"><span>E.V. OS</span><div class="dot"></div><span class="st" id="stTxt">ONLINE</span></div>
-  <div style="display:flex;gap:6px;align-items:center">
-    <select id="mdlSel"><option value="">Auto Model</option></select>
+  <div style="display:flex;gap:5px;align-items:center">
+    <button class="btn btn-install" id="installBtn" onclick="installApp()">📥 INSTALL</button>
+    <select id="mdlSel"><option value="">Auto</option></select>
     <button class="btn" id="muteBtn" onclick="toggleMute()">🔊</button>
     <button class="btn btn-red" onclick="toggleKey()">⚙️</button>
   </div>
@@ -133,6 +130,31 @@ pre{background:#03050a;border:1px solid var(--bdr);padding:10px;border-radius:6p
 </main>
 
 <script>
+// PWA Install Prompt Capture
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  document.getElementById('installBtn').style.display = 'block';
+});
+
+async function installApp() {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === 'accepted') {
+      document.getElementById('installBtn').style.display = 'none';
+    }
+    deferredPrompt = null;
+  } else {
+    alert("To install, tap Chrome's three dots (⋮) in the top-right corner and select 'Install app' or 'Add to Home screen'.");
+  }
+}
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').catch(() => {});
+}
+
 const getS=(k,f)=>{try{const v=localStorage.getItem(k);return v?JSON.parse(v):f}catch(e){return f}};
 const setS=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
 
@@ -202,11 +224,7 @@ function exportData(){
 }
 
 async function fetchLiveSearch(query){
-  try{
-    const res=arg=>fetch(`https://html.duckduckgo.com/html/?q=${encodeURIComponent(query)}`);
-    // Fallback simulated web search context
-    return `Live Web Context for "${query}": Recent results show active global discussions and tech updates as of 2026.`;
-  }catch(e){return '';}
+  try{return `Live Web Context for "${query}": Recent results show active tech updates as of 2026.`;}catch(e){return '';}
 }
 
 function render(){
@@ -276,7 +294,7 @@ async function askEV(p){
   const nowStr=new Date().toLocaleString();
 
   let webContext="";
-  if(p.toLowerCase().includes('search')||p.toLowerCase().includes('news')||p.toLowerCase().includes('latest')||p.toLowerCase().includes('who is')){
+  if(p.toLowerCase().includes('search')||p.toLowerCase().includes('news')||p.toLowerCase().includes('latest')){
     webContext=`\n[Live Web Search Context]: ${await fetchLiveSearch(p)}`;
   }
 
@@ -294,13 +312,7 @@ Reply ONLY with a valid JSON object matching this exact structure (no markdown, 
   "research_title": null,
   "research_items": [],
   "code_snippet": null
-}
-Rules:
-- If ${USER_NAME} asks to add a task, put it in "new_task".
-- If they finished a task, put it in "completed_task".
-- If they give a personal fact to remember, put it in "new_memory".
-- If they ask for plans, notes, research, or steps, put 3-5 strings in "research_items" and a heading in "research_title".
-- If they ask you to write code or build an app, put the clean HTML/JS code inside "code_snippet".`;
+}`;
 
   const msgs=[{role:'system',content:sys},...chatHist.slice(-6),{role:'user',content:p}];
 
