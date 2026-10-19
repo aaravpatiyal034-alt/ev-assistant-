@@ -9,14 +9,15 @@
 :root{--bg:#05070d;--panel:rgba(12,18,34,0.88);--red:#ff1e42;--glow:rgba(255,30,66,0.45);--blue:#00d2ff;--bdr:rgba(0,210,255,0.35);--txt:#e2f1ff}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);background-image:radial-gradient(circle at 50% 30%,rgba(255,30,66,0.16) 0%,transparent 55%);color:var(--txt);font-family:'Rajdhani',sans-serif;min-height:100vh}
-header{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-bottom:1px solid var(--red);box-shadow:0 2px 15px var(--glow);background:#05070d}
-.brand{display:flex;align-items:center;gap:8px;font-family:'Orbitron',sans-serif;font-weight:900;font-size:1.1rem}
+header{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid var(--red);box-shadow:0 2px 15px var(--glow);background:#05070d;gap:8px}
+.brand{display:flex;align-items:center;gap:8px;font-family:'Orbitron',sans-serif;font-weight:900;font-size:1.05rem}
 .dot{width:9px;height:9px;border-radius:50%;background:var(--red);box-shadow:0 0 10px var(--red)}
-.st{font-size:0.75rem;color:var(--red);font-weight:700}
-.btn{background:rgba(255,30,66,0.22);border:1px solid var(--red);color:#fff;padding:8px 12px;border-radius:6px;font-family:'Orbitron',sans-serif;font-size:0.72rem;cursor:pointer}
+.st{font-size:0.72rem;color:var(--red);font-weight:700}
+.btn{background:rgba(255,30,66,0.22);border:1px solid var(--red);color:#fff;padding:8px 10px;border-radius:6px;font-family:'Orbitron',sans-serif;font-size:0.68rem;cursor:pointer;white-space:nowrap}
 .btn.listening{background:var(--red);box-shadow:0 0 15px var(--red)}
+select{background:#080d1a;border:1px solid var(--bdr);color:var(--blue);padding:6px;border-radius:6px;font-family:'Rajdhani',sans-serif;font-size:0.8rem;max-width:145px;outline:none}
 .grid{display:flex;flex-direction:column;gap:12px;padding:14px;max-width:560px;margin:0 auto}
-.orb-wrap{position:relative;width:200px;height:200px;display:flex;align-items:center;justify-content:center;margin:8px auto}
+.orb-wrap{position:relative;width:190px;height:190px;display:flex;align-items:center;justify-content:center;margin:6px auto}
 .ring{position:absolute;inset:0;border-radius:50%;border:2px solid var(--red);box-shadow:0 0 25px var(--glow),inset 0 0 25px var(--glow);transition:0.3s}
 .ring.active{box-shadow:0 0 45px var(--red),inset 0 0 40px var(--red);transform:scale(1.05)}
 .web{position:absolute;width:86%;height:86%;opacity:0.45;animation:spin 40s linear infinite}
@@ -39,7 +40,10 @@ li{background:rgba(255,255,255,0.04);border-left:2px solid var(--red);padding:7p
 <body>
 <header>
   <div class="brand"><span>E.V.</span><div class="dot"></div><span class="st" id="stTxt">ONLINE</span></div>
-  <button class="btn" onclick="toggleKey()">🔑 API KEY</button>
+  <div style="display:flex;gap:6px;align-items:center">
+    <select id="mdlSel" title="AI Model"><option value="">Auto Model</option></select>
+    <button class="btn" onclick="toggleKey()">🔑 KEY</button>
+  </div>
 </header>
 <main class="grid">
   <div class="row" id="keyBar">
@@ -74,17 +78,49 @@ li{background:rgba(255,255,255,0.04);border-left:2px solid var(--red);padding:7p
 <script>
 const getS=(k,f)=>{try{const v=localStorage.getItem(k);return v?JSON.parse(v):f}catch(e){return f}};
 const setS=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
-let KEY=getS('ev_k',''),tasks=getS('ev_t',['Go to the gym']),mems=getS('ev_m',['Building E.V. on mobile']),resItems=[],wTimer=null,rec=null,chunks=[],isRec=false;
+let KEY=getS('ev_k',''),tasks=getS('ev_t',['Go to the gym']),mems=getS('ev_m',['Building E.V. on mobile']),resItems=[],wTimer=null,rec=null,chunks=[],isRec=false,whisperMdl='whisper-large-v3-turbo';
+
+async function loadModels(){
+  if(!KEY)return;
+  try{
+    const r=await fetch('https://api.groq.com/openai/v1/models',{headers:{'Authorization':`Bearer ${KEY}`}});
+    const d=await r.json();
+    if(!d.data)return;
+    const all=d.data.map(m=>m.id);
+    const w=all.find(id=>id.includes('whisper'));
+    if(w)whisperMdl=w;
+    const chat=all.filter(id=>!id.includes('whisper')&&!id.includes('guard')&&!id.includes('tts')&&!id.includes('vision'));
+    const pref=['llama-3.1-8b-instant','llama3-8b-8192','llama3-70b-8192','gemma2-9b-it','mixtral-8x7b-32768'];
+    chat.sort((a,b)=>{
+      const ia=pref.indexOf(a),ib=pref.indexOf(b);
+      if(ia!==-1&&ib!==-1)return ia-ib;
+      if(ia!==-1)return -1;
+      if(ib!==-1)return 1;
+      return a.localeCompare(b);
+    });
+    const sel=document.getElementById('mdlSel');
+    if(chat.length){
+      sel.innerHTML=chat.map(m=>`<option value="${m}">${m}</option>`).join('');
+    }
+  }catch(e){}
+}
 
 function init(){
-  if(KEY){document.getElementById('keyIn').value=KEY;document.getElementById('keyBar').style.display='none';document.getElementById('evTxt').textContent='E.V. Online. Ready for command.';}
+  if(KEY){
+    document.getElementById('keyIn').value=KEY;
+    document.getElementById('keyBar').style.display='none';
+    document.getElementById('evTxt').textContent='E.V. Online. Ready for command.';
+    loadModels();
+  }
   render();
 }
 function toggleKey(){const b=document.getElementById('keyBar');b.style.display=b.style.display==='none'?'flex':'none';}
 function saveKey(){
   const v=document.getElementById('keyIn').value.trim();
   if(!v.startsWith('gsk_')){document.getElementById('evTxt').textContent='⚠️ Key must start with gsk_';return;}
-  KEY=v;setS('ev_k',KEY);document.getElementById('keyBar').style.display='none';document.getElementById('evTxt').textContent='✅ Key saved! Speak or type below.';
+  KEY=v;setS('ev_k',KEY);document.getElementById('keyBar').style.display='none';
+  document.getElementById('evTxt').textContent='✅ Key saved! Loading available Groq models...';
+  loadModels().then(()=>{document.getElementById('evTxt').textContent='✅ E.V. Ready! Speak or type below.';});
 }
 function render(){
   document.getElementById('tCnt').textContent=tasks.length+' QUEUED';
@@ -114,7 +150,7 @@ async function micClick(){
     rec.ondataavailable=e=>{if(e.data.size>0)chunks.push(e.data);};
     rec.onstop=async()=>{
       st.getTracks().forEach(t=>t.stop());setOrb('THINKING');document.getElementById('evTxt').textContent='Transcribing...';
-      const fd=new FormData();fd.append('file',new Blob(chunks,{type:'audio/webm'}),'v.webm');fd.append('model','whisper-large-v3-turbo');
+      const fd=new FormData();fd.append('file',new Blob(chunks,{type:'audio/webm'}),'v.webm');fd.append('model',whisperMdl);
       try{
         const r=await fetch('https://api.groq.com/openai/v1/audio/transcriptions',{method:'POST',headers:{'Authorization':`Bearer ${KEY}`},body:fd});
         const d=await r.json();
@@ -129,14 +165,18 @@ async function micClick(){
 async function askEV(p){
   if(!KEY){toggleKey();return;}
   setOrb('THINKING');document.getElementById('evTxt').textContent='Processing...';
-  const sys=`You are E.V., Spider-Man's AI assistant. Reply ONLY in valid JSON: {"spoken_reply":"1-2 sentence reply","new_task":"string or null","new_memory":"string or null","research_title":"string or null","research_items":["array of 3 hooks/notes or empty"]}`;
+  const mdl=document.getElementById('mdlSel').value||'llama-3.1-8b-instant';
+  const sys=`You are E.V., Spider-Man's AI assistant. Reply ONLY with a valid JSON object matching this exact structure (no markdown, no backticks): {"spoken_reply":"1-2 sentence reply","new_task":null,"new_memory":null,"research_title":null,"research_items":[]} If the user asks to create a task, put the task string in new_task. If they share a personal fact to remember, put it in new_memory. If they ask for hooks or research, put 3-4 strings in research_items and a short title in research_title.`;
   try{
     const r=await fetch('https://api.groq.com/openai/v1/chat/completions',{
       method:'POST',headers:{'Authorization':`Bearer ${KEY}`,'Content-Type':'application/json'},
-      body:JSON.stringify({model:'llama-3.3-70b-versatile',messages:[{role:'system',content:sys},{role:'user',content:p}],response_format:{type:'json_object'},temperature:0.5})
+      body:JSON.stringify({model:mdl,messages:[{role:'system',content:sys},{role:'user',content:p}],temperature:0.5})
     });
     const d=await r.json();if(!r.ok)throw new Error(d.error?.message||'API Error');
-    const res=JSON.parse(d.choices[0].message.content);
+    let raw=d.choices[0].message.content.trim();
+    const sIdx=raw.indexOf('{'),eIdx=raw.lastIndexOf('}');
+    let res={spoken_reply:raw};
+    if(sIdx!==-1&&eIdx!==-1){try{res=JSON.parse(raw.slice(sIdx,eIdx+1));}catch(e){}}
     if(res.new_task){tasks.unshift(res.new_task);setS('ev_t',tasks);}
     if(res.new_memory){mems.unshift(res.new_memory);setS('ev_m',mems);}
     if(res.research_items?.length){resItems=res.research_items;if(res.research_title)document.getElementById('rTitle').textContent=res.research_title.toUpperCase();}
@@ -150,4 +190,5 @@ function speak(t){
 init();
 </script>
 </body>
-</html>
+  </html>
+  
