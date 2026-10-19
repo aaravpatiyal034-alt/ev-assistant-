@@ -41,6 +41,12 @@ li{background:rgba(255,255,255,0.04);border-left:2px solid var(--blue);padding:7
 pre{background:#03050a;border:1px solid var(--bdr);padding:10px;border-radius:6px;overflow-x:auto;font-family:monospace;font-size:0.8rem;color:#00ff9d;margin-top:6px}
 @keyframes spin{100%{transform:rotate(360deg)}}
 </style>
+  <link rel="manifest" href="manifest.json">
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+  }
+</script>
 </head>
 <body>
 <header>
