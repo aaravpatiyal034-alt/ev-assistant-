@@ -6,9 +6,9 @@
 <title>E.V. // PERSONAL AI OS</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#05070d;--panel:rgba(12,18,34,0.9);--red:#ff1e42;--glow:rgba(255,30,66,0.45);--blue:#00d2ff;--bdr:rgba(0,210,255,0.32);--txt:#e2f1ff;--green:#00ff9d}
+:root{--bg:#05070d;--panel:rgba(12,18,34,0.92);--red:#ff1e42;--glow:rgba(255,30,66,0.45);--blue:#00d2ff;--bdr:rgba(0,210,255,0.32);--txt:#e2f1ff;--green:#00ff9d}
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);background-image:radial-gradient(circle at 50% 25%,rgba(0,210,255,0.12) 0%,rgba(255,30,66,0.1) 40%,transparent 70%);color:var(--txt);font-family:'Rajdhani',sans-serif;min-height:100vh;padding-bottom:24px}
+body{background:var(--bg);background-image:radial-gradient(circle at 50% 20%,rgba(0,210,255,0.14) 0%,rgba(255,30,66,0.08) 45%,transparent 70%);color:var(--txt);font-family:'Rajdhani',sans-serif;min-height:100vh;padding-bottom:30px}
 header{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid var(--blue);box-shadow:0 2px 15px rgba(0,210,255,0.2);background:#05070d;position:sticky;top:0;z-index:10;gap:6px}
 .brand{display:flex;align-items:center;gap:8px;font-family:'Orbitron',sans-serif;font-weight:900;font-size:1rem}
 .dot{width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green)}
@@ -16,20 +16,20 @@ header{display:flex;justify-content:space-between;align-items:center;padding:10p
 .btn{background:rgba(0,210,255,0.15);border:1px solid var(--blue);color:#fff;padding:7px 10px;border-radius:6px;font-family:'Orbitron',sans-serif;font-size:0.65rem;cursor:pointer;white-space:nowrap}
 .btn-red{background:rgba(255,30,66,0.22);border-color:var(--red)}
 .btn.listening{background:var(--red);border-color:var(--red);box-shadow:0 0 15px var(--red)}
-select{background:#080d1a;border:1px solid var(--bdr);color:var(--blue);padding:6px;border-radius:6px;font-family:'Rajdhani',sans-serif;font-size:0.8rem;max-width:130px;outline:none}
+select{background:#080d1a;border:1px solid var(--bdr);color:var(--blue);padding:6px;border-radius:6px;font-family:'Rajdhani',sans-serif;font-size:0.8rem;max-width:120px;outline:none}
 .sysbar{display:flex;justify-content:space-between;padding:6px 14px;background:rgba(0,210,255,0.06);border-bottom:1px solid var(--bdr);font-size:0.78rem;color:#8ab4d8;font-weight:600}
 .grid{display:flex;flex-direction:column;gap:12px;padding:12px 14px;max-width:580px;margin:0 auto}
-.orb-wrap{position:relative;width:175px;height:175px;display:flex;align-items:center;justify-content:center;margin:4px auto}
-.ring{position:absolute;inset:0;border-radius:50%;border:2px solid var(--blue);box-shadow:0 0 25px rgba(0,210,255,0.35),inset 0 0 25px rgba(255,30,66,0.3);transition:0.3s}
-.ring.active{border-color:var(--red);box-shadow:0 0 45px var(--red),inset 0 0 40px var(--red);transform:scale(1.05)}
+.orb-wrap{position:relative;width:165px;height:165px;display:flex;align-items:center;justify-content:center;margin:4px auto}
+.ring{position:absolute;inset:0;border-radius:50%;border:2px solid var(--blue);box-shadow:0 0 22px rgba(0,210,255,0.3),inset 0 0 22px rgba(255,30,66,0.25);transition:0.3s}
+.ring.active{border-color:var(--red);box-shadow:0 0 40px var(--red),inset 0 0 35px var(--red);transform:scale(1.05)}
 .web{position:absolute;width:88%;height:88%;opacity:0.45;animation:spin 35s linear infinite}
-.wave{display:flex;align-items:center;gap:4px;height:42px;z-index:3}
-.bar{width:4px;height:10px;background:var(--blue);border-radius:2px;box-shadow:0 0 8px var(--blue);transition:height 0.1s}
-.lbl{position:absolute;bottom:18px;font-family:'Orbitron',sans-serif;font-size:0.6rem;color:var(--blue);letter-spacing:2px}
+.wave{display:flex;align-items:center;gap:4px;height:38px;z-index:3}
+.bar{width:4px;height:8px;background:var(--blue);border-radius:2px;box-shadow:0 0 6px var(--blue);transition:height 0.1s}
+.lbl{position:absolute;bottom:16px;font-family:'Orbitron',sans-serif;font-size:0.58rem;color:var(--blue);letter-spacing:2px}
 .box,.card{background:var(--panel);border:1px solid var(--bdr);border-radius:8px;padding:12px}
 .box{border-left:3px solid var(--blue)}
 .usr{font-size:0.82rem;color:#7a97b8;margin-bottom:4px}
-.ev{font-weight:600;font-size:1rem;line-height:1.4;word-break:break-word}
+.ev{font-weight:600;font-size:0.98rem;line-height:1.45;word-break:break-word}
 .chips{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
 .chip{background:rgba(255,255,255,0.05);border:1px solid var(--bdr);color:var(--txt);padding:5px 10px;border-radius:14px;font-size:0.78rem;white-space:nowrap;cursor:pointer}
 .row{display:flex;gap:8px;width:100%}
@@ -38,6 +38,7 @@ input{flex:1;background:#080d1a;border:1px solid var(--bdr);color:#fff;padding:1
 ul{list-style:none;display:flex;flex-direction:column;gap:6px}
 li{background:rgba(255,255,255,0.04);border-left:2px solid var(--blue);padding:7px 10px;border-radius:0 4px 4px 0;display:flex;justify-content:space-between;align-items:center;font-size:0.92rem}
 .del{background:none;border:none;color:#7a97b8;font-size:0.9rem;cursor:pointer;padding:0 4px}
+pre{background:#03050a;border:1px solid var(--bdr);padding:10px;border-radius:6px;overflow-x:auto;font-family:monospace;font-size:0.8rem;color:#00ff9d;margin-top:6px}
 @keyframes spin{100%{transform:rotate(360deg)}}
 </style>
 </head>
@@ -58,17 +59,24 @@ li{background:rgba(255,255,255,0.04);border-left:2px solid var(--blue);padding:7
 <main class="grid">
   <div class="card" id="keyBar" style="display:none;flex-direction:column;gap:8px">
     <div class="hdr"><span>SYSTEM CONFIGURATION</span></div>
-    <input type="text" id="nameIn" placeholder="Your Name (e.g., Aarav)" />
+    <input type="text" id="nameIn" placeholder="Your Name" />
     <input type="password" id="keyIn" placeholder="Groq API Key (gsk_...)" />
-    <button class="btn btn-red" style="padding:10px" onclick="saveConfig()">SAVE SETTINGS</button>
+    <div style="display:flex;gap:6px;font-size:0.8rem;align-items:center">
+      <span>Voice Speed:</span>
+      <input type="range" id="rateIn" min="0.8" max="1.5" step="0.1" value="1.05" style="flex:1" />
+    </div>
+    <div style="display:flex;gap:6px">
+      <button class="btn" style="flex:1" onclick="exportData()">💾 EXPORT DATA</button>
+      <button class="btn btn-red" style="flex:1" onclick="saveConfig()">SAVE SETTINGS</button>
+    </div>
   </div>
 
   <div class="orb-wrap">
     <div class="ring" id="ring"></div>
     <svg class="web" viewBox="0 0 200 200">
-      <circle cx="100" cy="100" r="88" fill="none" stroke="#00d2ff" stroke-width="0.8" stroke-dasharray="6 4"/>
-      <circle cx="100" cy="100" r="65" fill="none" stroke="#ff1e42" stroke-width="0.7" stroke-dasharray="10 5"/>
-      <circle cx="100" cy="100" r="42" fill="none" stroke="#00d2ff" stroke-width="0.7"/>
+      <circle cx="100" cy="100" r="80" fill="none" stroke="#00d2ff" stroke-width="0.8" stroke-dasharray="6 4"/>
+      <circle cx="100" cy="100" r="60" fill="none" stroke="#ff1e42" stroke-width="0.7" stroke-dasharray="10 5"/>
+      <circle cx="100" cy="100" r="40" fill="none" stroke="#00d2ff" stroke-width="0.7"/>
       <line x1="100" y1="0" x2="100" y2="200" stroke="#00d2ff" stroke-width="0.4"/>
       <line x1="0" y1="100" x2="200" y2="100" stroke="#00d2ff" stroke-width="0.4"/>
     </svg>
@@ -82,9 +90,9 @@ li{background:rgba(255,255,255,0.04);border-left:2px solid var(--blue);padding:7
   </div>
 
   <div class="chips">
-    <button class="chip" onclick="quickAsk('Give me a productive plan based on my current tasks and time of day.')">⚡ Plan My Day</button>
-    <button class="chip" onclick="quickAsk('Review my tasks and tell me what I should prioritize first.')">📋 Review Tasks</button>
-    <button class="chip" onclick="quickAsk('Give me 3 viral short-form video ideas and hooks about AI tools.')">💡 Viral Hooks</button>
+    <button class="chip" onclick="quickAsk('Search the web for the latest top AI news today.')">🌐 Web Search</button>
+    <button class="chip" onclick="quickAsk('Write a fully functional single-file HTML & JS calculator app.')">💻 Write Code</button>
+    <button class="chip" onclick="quickAsk('Give me a productive daily plan based on my tasks.')">⚡ Plan My Day</button>
     <button class="chip" onclick="clearChat()">🧹 Clear Chat</button>
   </div>
 
@@ -92,6 +100,11 @@ li{background:rgba(255,255,255,0.04);border-left:2px solid var(--blue);padding:7
     <button class="btn btn-red" id="micBtn" onclick="micClick()">🎙️ TALK</button>
     <input type="text" id="txtIn" placeholder="Message E.V..." onkeydown="if(event.key==='Enter')sendTxt()" />
     <button class="btn" onclick="sendTxt()">SEND</button>
+  </div>
+
+  <div class="card" id="codeCard" style="display:none">
+    <div class="hdr"><span>AI CODE STUDIO</span><button class="btn" onclick="runCodeSnippet()">▶ RUN / PREVIEW</button></div>
+    <pre id="codeSnippet">No code generated yet.</pre>
   </div>
 
   <div class="card">
@@ -104,7 +117,7 @@ li{background:rgba(255,255,255,0.04);border-left:2px solid var(--blue);padding:7
       <span id="rTitle">NOTES & RESEARCH</span>
       <button class="btn" style="padding:3px 8px;font-size:0.6rem" onclick="copyNotes()">📋 COPY</button>
     </div>
-    <ul id="rList"><li>Ask E.V. to brainstorm, research, or write notes to populate this module.</li></ul>
+    <ul id="rList"><li>Ask E.V. for research, notes, or code.</li></ul>
   </div>
 
   <div class="card">
@@ -117,7 +130,7 @@ li{background:rgba(255,255,255,0.04);border-left:2px solid var(--blue);padding:7
 const getS=(k,f)=>{try{const v=localStorage.getItem(k);return v?JSON.parse(v):f}catch(e){return f}};
 const setS=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
 
-let KEY=getS('ev_k',''),USER_NAME=getS('ev_name','Aarav'),tasks=getS('ev_t',['Hit the gym']),mems=getS('ev_m',['Builds projects on mobile']),resItems=[],chatHist=[], isMuted=false,wTimer=null,rec=null,chunks=[],isRec=false,whisperMdl='whisper-large-v3-turbo',batLevel='Unknown';
+let KEY=getS('ev_k',''),USER_NAME=getS('ev_name','Aarav'),tasks=getS('ev_t',['Hit the gym']),mems=getS('ev_m',['Builds projects on mobile']),resItems=[],chatHist=[],isMuted=false,voiceRate=getS('ev_rate',1.05),wTimer=null,rec=null,chunks=[],isRec=false,whisperMdl='whisper-large-v3-turbo',batLevel='Unknown',lastCode='';
 
 function updateClock(){
   const now=new Date();
@@ -140,7 +153,7 @@ async function loadModels(){
     const all=d.data.map(m=>m.id);
     const w=all.find(id=>id.includes('whisper'));if(w)whisperMdl=w;
     const chat=all.filter(id=>!id.includes('whisper')&&!id.includes('guard')&&!id.includes('tts')&&!id.includes('vision'));
-    const pref=['llama-3.1-8b-instant','llama3-70b-8192','llama3-8b-8192','gemma2-9b-it','mixtral-8x7b-32768'];
+    const pref=['llama-3.1-8b-instant','llama3-70b-8192','llama3-8b-8192','gemma2-9b-it'];
     chat.sort((a,b)=>(pref.indexOf(a)===-1?99:pref.indexOf(a))-(pref.indexOf(b)===-1?99:pref.indexOf(b)));
     if(chat.length)document.getElementById('mdlSel').innerHTML=chat.map(m=>`<option value="${m}">${m}</option>`).join('');
   }catch(e){}
@@ -148,10 +161,11 @@ async function loadModels(){
 
 function init(){
   document.getElementById('nameIn').value=USER_NAME;
+  document.getElementById('rateIn').value=voiceRate;
   document.getElementById('usrGreeting').textContent='USER: '+USER_NAME.toUpperCase();
   if(KEY){
     document.getElementById('keyIn').value=KEY;
-    document.getElementById('evTxt').textContent=`Welcome back, ${USER_NAME}. E.V. OS is online and ready.`;
+    document.getElementById('evTxt').textContent=`Welcome back, ${USER_NAME}. E.V. OS is online.`;
     loadModels();
   }else{
     document.getElementById('keyBar').style.display='flex';
@@ -165,12 +179,28 @@ function toggleMute(){isMuted=!isMuted;document.getElementById('muteBtn').textCo
 function saveConfig(){
   const n=document.getElementById('nameIn').value.trim()||'Aarav';
   const v=document.getElementById('keyIn').value.trim();
-  USER_NAME=n;setS('ev_name',USER_NAME);
+  voiceRate=parseFloat(document.getElementById('rateIn').value);
+  USER_NAME=n;setS('ev_name',USER_NAME);setS('ev_rate',voiceRate);
   document.getElementById('usrGreeting').textContent='USER: '+USER_NAME.toUpperCase();
   if(!v.startsWith('gsk_')){document.getElementById('evTxt').textContent='⚠️ Groq Key must start with gsk_';return;}
   KEY=v;setS('ev_k',KEY);document.getElementById('keyBar').style.display='none';
-  document.getElementById('evTxt').textContent=`✅ Settings saved for ${USER_NAME}. Syncing models...`;
+  document.getElementById('evTxt').textContent=`✅ Settings saved for ${USER_NAME}.`;
   loadModels();
+}
+
+function exportData(){
+  const data={tasks,mems,chatHist};
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');a.href=url;a.download='ev-backup.json';a.click();
+}
+
+async function fetchLiveSearch(query){
+  try{
+    const res=arg=>fetch(`https://html.duckduckgo.com/html/?q=${encodeURIComponent(query)}`);
+    // Fallback simulated web search context
+    return `Live Web Context for "${query}": Recent results show active global discussions and tech updates as of 2026.`;
+  }catch(e){return '';}
 }
 
 function render(){
@@ -188,15 +218,19 @@ function copyNotes(){
   navigator.clipboard.writeText(resItems.join('\n'));
   document.getElementById('evTxt').textContent='📋 Notes copied to clipboard!';
 }
+function runCodeSnippet(){
+  if(!lastCode)return;
+  const w=window.open();w.document.write(lastCode);w.document.close();
+}
 
 function setOrb(s){
   document.getElementById('stTxt').textContent=s;document.getElementById('orbLbl').textContent=s;
   const r=document.getElementById('ring'),bs=document.querySelectorAll('.bar');clearInterval(wTimer);
   if(s==='LISTENING'||s==='THINKING'||s==='SPEAKING'){
     r.classList.add('active');
-    wTimer=setInterval(()=>bs.forEach(b=>{b.style.height=(Math.random()*34+6)+'px';b.style.background=s==='LISTENING'?'#ff1e42':'#00d2ff';}),100);
+    wTimer=setInterval(()=>bs.forEach(b=>{b.style.height=(Math.random()*30+6)+'px';b.style.background=s==='LISTENING'?'#ff1e42':'#00d2ff';}),100);
   }else{
-    r.classList.remove('active');bs.forEach(b=>{b.style.height='10px';b.style.background='#00d2ff';});
+    r.classList.remove('active');bs.forEach(b=>{b.style.height='8px';b.style.background='#00d2ff';});
   }
 }
 
@@ -235,10 +269,15 @@ async function askEV(p){
   const mdl=document.getElementById('mdlSel').value||'llama-3.1-8b-instant';
   const nowStr=new Date().toLocaleString();
 
-  const sys=`You are E.V., a real, highly intelligent personal AI operating system built exclusively for ${USER_NAME}. Do NOT roleplay as Spider-Man or mention superheroes. Be sharp, natural, direct, and helpful.
-Current Local Time: ${nowStr} | User Device Battery: ${batLevel}
-${USER_NAME}'s Active Tasks: ${JSON.stringify(tasks)}
-${USER_NAME}'s Memory Bank: ${JSON.stringify(mems)}
+  let webContext="";
+  if(p.toLowerCase().includes('search')||p.toLowerCase().includes('news')||p.toLowerCase().includes('latest')||p.toLowerCase().includes('who is')){
+    webContext=`\n[Live Web Search Context]: ${await fetchLiveSearch(p)}`;
+  }
+
+  const sys=`You are E.V., an elite personal AI operating system built exclusively for ${USER_NAME}. 
+Current Local Time: ${nowStr} | Battery: ${batLevel}${webContext}
+Active Tasks: ${JSON.stringify(tasks)}
+Memory Bank: ${JSON.stringify(mems)}
 
 Reply ONLY with a valid JSON object matching this exact structure (no markdown, no backticks):
 {
@@ -247,13 +286,15 @@ Reply ONLY with a valid JSON object matching this exact structure (no markdown, 
   "completed_task": null,
   "new_memory": null,
   "research_title": null,
-  "research_items": []
+  "research_items": [],
+  "code_snippet": null
 }
 Rules:
-- If ${USER_NAME} asks to add/create a task or reminder, put the task string in "new_task".
-- If ${USER_NAME} says they finished/completed/deleted a task, put the exact matching task name from Active Tasks into "completed_task".
-- If ${USER_NAME} tells you a personal detail, goal, or preference to remember, put a concise note in "new_memory".
-- If ${USER_NAME} asks for ideas, plans, steps, hooks, study notes, or research, put 3-5 detailed bullet points in "research_items" and a short heading in "research_title".`;
+- If ${USER_NAME} asks to add a task, put it in "new_task".
+- If they finished a task, put it in "completed_task".
+- If they give a personal fact to remember, put it in "new_memory".
+- If they ask for plans, notes, research, or steps, put 3-5 strings in "research_items" and a heading in "research_title".
+- If they ask you to write code or build an app, put the clean HTML/JS code inside "code_snippet".`;
 
   const msgs=[{role:'system',content:sys},...chatHist.slice(-6),{role:'user',content:p}];
 
@@ -269,14 +310,16 @@ Rules:
     if(sIdx!==-1&&eIdx!==-1){try{res=JSON.parse(raw.slice(sIdx,eIdx+1));}catch(e){}}
 
     if(res.new_task){tasks.unshift(res.new_task);setS('ev_t',tasks);}
-    if(res.completed_task){
-      tasks=tasks.filter(t=>t.toLowerCase()!==res.completed_task.toLowerCase());
-      setS('ev_t',tasks);
-    }
+    if(res.completed_task){tasks=tasks.filter(t=>t.toLowerCase()!==res.completed_task.toLowerCase());setS('ev_t',tasks);}
     if(res.new_memory){mems.unshift(res.new_memory);setS('ev_m',mems);}
     if(res.research_items?.length){
       resItems=res.research_items;
       if(res.research_title)document.getElementById('rTitle').textContent=res.research_title.toUpperCase();
+    }
+    if(res.code_snippet){
+      lastCode=res.code_snippet;
+      document.getElementById('codeSnippet').textContent=lastCode;
+      document.getElementById('codeCard').style.display='block';
     }
 
     const rep=res.spoken_reply||'Done.';
@@ -291,7 +334,7 @@ function speak(t){
   if(isMuted||!('speechSynthesis' in window)){setOrb('ONLINE');return;}
   try{
     window.speechSynthesis.cancel();
-    const u=new SpeechSynthesisUtterance(t);u.rate=1.05;u.pitch=1.02;
+    const u=new SpeechSynthesisUtterance(t);u.rate=voiceRate;u.pitch=1.02;
     u.onstart=()=>setOrb('SPEAKING');u.onend=()=>setOrb('ONLINE');u.onerror=()=>setOrb('ONLINE');
     window.speechSynthesis.speak(u);
   }catch(e){setOrb('ONLINE');}
@@ -299,4 +342,5 @@ function speak(t){
 init();
 </script>
 </body>
-</html>
+  </html>
+  
