@@ -1,6 +1,6 @@
 self.addEventListener('install', (e) => {
   e.waitUntil(
-    caches.open('ev-store').then((cache) => cache.addAll(['./index.html', './manifest.json']))
+    caches.open('ev-store-v2').then((cache) => cache.addAll(['./index.html', './manifest.json']))
   );
 });
 self.addEventListener('fetch', (e) => {
