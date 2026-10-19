@@ -1,0 +1,15 @@
+{
+  "name": "E.V. Personal AI OS",
+  "short_name": "E.V.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#05070d",
+  "theme_color": "#ff1e42",
+  "icons": [
+    {
+      "src": "https://img.icons8.com/fluency/96/iron-man.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    }
+  ]
+}
