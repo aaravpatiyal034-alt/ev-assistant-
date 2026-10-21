@@ -1,15 +1,19 @@
 {
-  "name": "E.V. Personal AI OS",
+  "name": "E.V. OS",
   "short_name": "E.V.",
   "start_url": "./index.html",
-  "scope": "./",
   "display": "standalone",
-  "background_color": "#05070d",
-  "theme_color": "#ff1e42",
+  "background_color": "#0a0a0a",
+  "theme_color": "#00f0ff",
   "icons": [
     {
-      "src": "https://img.icons8.com/fluency/96/iron-man.png",
-      "sizes": "96x96",
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
       "type": "image/png"
     }
   ]
