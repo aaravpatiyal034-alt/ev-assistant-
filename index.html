@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>E.V. // PERSONAL AI OS</title>
 <link rel="manifest" href="manifest.json">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#05070d;--panel:rgba(12,18,34,0.92);--red:#ff1e42;--glow:rgba(255,30,66,0.45);--blue:#00d2ff;--bdr:rgba(0,210,255,0.32);--txt:#e2f1ff;--green:#00ff9d}
+:root{--bg:#05070d;--panel:rgba(12,18,34,0.92);--red:#ff1e42;--blue:#00d2ff;--bdr:rgba(0,210,255,0.32);--txt:#e2f1ff;--green:#00ff9d}
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);background-image:radial-gradient(circle at 50% 20%,rgba(0,210,255,0.14) 0%,rgba(255,30,66,0.08) 45%,transparent 70%);color:var(--txt);font-family:'Rajdhani',sans-serif;min-height:100vh;padding-bottom:30px}
-header{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid var(--blue);box-shadow:0 2px 15px rgba(0,210,255,0.2);background:#05070d;position:sticky;top:0;z-index:10;gap:6px}
+body{background:var(--bg);background-image:radial-gradient(circle at 50% 20%,rgba(0,210,255,0.14) 0%,rgba(255,30,66,0.08) 45%,transparent 70%);color:var(--txt);font-family:'Rajdhani',sans-serif;min-height:100vh;padding-bottom:40px}
+header{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid var(--blue);background:#05070d;position:sticky;top:0;z-index:10;gap:6px}
 .brand{display:flex;align-items:center;gap:8px;font-family:'Orbitron',sans-serif;font-weight:900;font-size:1rem}
 .dot{width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green)}
-.st{font-size:0.7rem;color:var(--blue);font-weight:700;letter-spacing:1px}
+.st{font-size:0.7rem;color:var(--blue);font-weight:700}
 .btn{background:rgba(0,210,255,0.15);border:1px solid var(--blue);color:#fff;padding:7px 10px;border-radius:6px;font-family:'Orbitron',sans-serif;font-size:0.65rem;cursor:pointer;white-space:nowrap}
 .btn-red{background:rgba(255,30,66,0.22);border-color:var(--red)}
 .btn-install{background:rgba(0,255,157,0.2);border-color:var(--green);color:var(--green);display:none}
@@ -21,13 +20,13 @@ header{display:flex;justify-content:space-between;align-items:center;padding:10p
 select{background:#080d1a;border:1px solid var(--bdr);color:var(--blue);padding:6px;border-radius:6px;font-family:'Rajdhani',sans-serif;font-size:0.8rem;max-width:110px;outline:none}
 .sysbar{display:flex;justify-content:space-between;padding:6px 14px;background:rgba(0,210,255,0.06);border-bottom:1px solid var(--bdr);font-size:0.78rem;color:#8ab4d8;font-weight:600}
 .grid{display:flex;flex-direction:column;gap:12px;padding:12px 14px;max-width:580px;margin:0 auto}
-.orb-wrap{position:relative;width:165px;height:165px;display:flex;align-items:center;justify-content:center;margin:4px auto}
-.ring{position:absolute;inset:0;border-radius:50%;border:2px solid var(--blue);box-shadow:0 0 22px rgba(0,210,255,0.3),inset 0 0 22px rgba(255,30,66,0.25);transition:0.3s}
-.ring.active{border-color:var(--red);box-shadow:0 0 40px var(--red),inset 0 0 35px var(--red);transform:scale(1.05)}
+.orb-wrap{position:relative;width:150px;height:150px;display:flex;align-items:center;justify-content:center;margin:4px auto}
+.ring{position:absolute;inset:0;border-radius:50%;border:2px solid var(--blue);box-shadow:0 0 22px rgba(0,210,255,0.3);transition:0.3s}
+.ring.active{border-color:var(--red);box-shadow:0 0 40px var(--red);transform:scale(1.05)}
 .web{position:absolute;width:88%;height:88%;opacity:0.45;animation:spin 35s linear infinite}
 .wave{display:flex;align-items:center;gap:4px;height:38px;z-index:3}
-.bar{width:4px;height:8px;background:var(--blue);border-radius:2px;box-shadow:0 0 6px var(--blue);transition:height 0.1s}
-.lbl{position:absolute;bottom:16px;font-family:'Orbitron',sans-serif;font-size:0.58rem;color:var(--blue);letter-spacing:2px}
+.bar{width:4px;height:8px;background:var(--blue);border-radius:2px;transition:height 0.1s}
+.lbl{position:absolute;bottom:12px;font-family:'Orbitron',sans-serif;font-size:0.58rem;color:var(--blue);letter-spacing:2px}
 .box,.card{background:var(--panel);border:1px solid var(--bdr);border-radius:8px;padding:12px}
 .box{border-left:3px solid var(--blue)}
 .usr{font-size:0.82rem;color:#7a97b8;margin-bottom:4px}
@@ -41,6 +40,9 @@ ul{list-style:none;display:flex;flex-direction:column;gap:6px}
 li{background:rgba(255,255,255,0.04);border-left:2px solid var(--blue);padding:7px 10px;border-radius:0 4px 4px 0;display:flex;justify-content:space-between;align-items:center;font-size:0.92rem}
 .del{background:none;border:none;color:#7a97b8;font-size:0.9rem;cursor:pointer;padding:0 4px}
 pre{background:#03050a;border:1px solid var(--bdr);padding:10px;border-radius:6px;overflow-x:auto;font-family:monospace;font-size:0.8rem;color:#00ff9d;margin-top:6px}
+.ev-bubble{position:fixed;bottom:85px;right:20px;width:55px;height:55px;background:radial-gradient(circle,#00f0ff 0%,#0077ff 100%);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Orbitron',sans-serif;font-weight:900;font-size:0.8rem;box-shadow:0 0 20px rgba(0,240,255,0.6);z-index:9999;cursor:pointer;touch-action:none}
+.mentor-modal{position:fixed;inset:0;background:rgba(3,5,10,0.85);z-index:10000;display:none;align-items:flex-end;backdrop-filter:blur(5px)}
+.mentor-sheet{background:#0c1222;border-top:1px solid var(--blue);width:100%;max-height:75vh;border-radius:16px 16px 0 0;padding:16px;display:flex;flex-direction:column;gap:10px}
 @keyframes spin{100%{transform:rotate(360deg)}}
 </style>
 </head>
@@ -54,23 +56,22 @@ pre{background:#03050a;border:1px solid var(--bdr);padding:10px;border-radius:6p
     <button class="btn btn-red" onclick="toggleKey()">⚙️</button>
   </div>
 </header>
-<div class="sysbar">
-  <span id="usrGreeting">USER: AARAV</span>
-  <span id="clockTxt">--:--</span>
-  <span id="batTxt">⚡ READY</span>
-</div>
+<div class="sysbar"><span id="usrGreeting">USER: AARAV</span><span id="clockTxt">--:--</span><span id="batTxt">⚡ READY</span></div>
+
 <main class="grid">
   <div class="card" id="keyBar" style="display:none;flex-direction:column;gap:8px">
-    <div class="hdr"><span>SYSTEM CONFIGURATION</span></div>
+    <div class="hdr"><span>CONFIG</span></div>
     <input type="text" id="nameIn" placeholder="Your Name" />
     <input type="password" id="keyIn" placeholder="Groq API Key (gsk_...)" />
     <div style="display:flex;gap:6px;font-size:0.8rem;align-items:center">
-      <span>Voice Speed:</span>
-      <input type="range" id="rateIn" min="0.8" max="1.5" step="0.1" value="1.05" style="flex:1" />
+      <span>Voice Speed:</span><input type="range" id="rateIn" min="0.8" max="1.5" step="0.1" value="1.05" style="flex:1" />
+    </div>
+    <div style="display:flex;gap:6px;align-items:center;font-size:0.85rem">
+      <span>Floating Mentor:</span><button class="btn" id="bubbleToggleBtn" onclick="toggleBubblePref()" style="flex:1">ENABLED</button>
     </div>
     <div style="display:flex;gap:6px">
-      <button class="btn" style="flex:1" onclick="exportData()">💾 EXPORT DATA</button>
-      <button class="btn btn-red" style="flex:1" onclick="saveConfig()">SAVE SETTINGS</button>
+      <button class="btn" style="flex:1" onclick="exportData()">💾 EXPORT</button>
+      <button class="btn btn-red" style="flex:1" onclick="saveConfig()">SAVE</button>
     </div>
   </div>
 
@@ -79,7 +80,6 @@ pre{background:#03050a;border:1px solid var(--bdr);padding:10px;border-radius:6p
     <svg class="web" viewBox="0 0 200 200">
       <circle cx="100" cy="100" r="80" fill="none" stroke="#00d2ff" stroke-width="0.8" stroke-dasharray="6 4"/>
       <circle cx="100" cy="100" r="60" fill="none" stroke="#ff1e42" stroke-width="0.7" stroke-dasharray="10 5"/>
-      <circle cx="100" cy="100" r="40" fill="none" stroke="#00d2ff" stroke-width="0.7"/>
       <line x1="100" y1="0" x2="100" y2="200" stroke="#00d2ff" stroke-width="0.4"/>
       <line x1="0" y1="100" x2="200" y2="100" stroke="#00d2ff" stroke-width="0.4"/>
     </svg>
@@ -93,10 +93,10 @@ pre{background:#03050a;border:1px solid var(--bdr);padding:10px;border-radius:6p
   </div>
 
   <div class="chips">
-    <button class="chip" onclick="quickAsk('Search the web for the latest top AI news today.')">🌐 Web Search</button>
+    <button class="chip" onclick="quickAsk('Search the web for top AI news.')">🌐 Web Search</button>
     <button class="chip" onclick="quickAsk('Write a fully functional single-file HTML & JS calculator app.')">💻 Write Code</button>
-    <button class="chip" onclick="quickAsk('Give me a productive daily plan based on my tasks.')">⚡ Plan My Day</button>
-    <button class="chip" onclick="clearChat()">🧹 Clear Chat</button>
+    <button class="chip" onclick="quickAsk('Give me a productive daily plan.')">⚡ Plan Day</button>
+    <button class="chip" onclick="clearChat()">🧹 Clear</button>
   </div>
 
   <div class="row">
@@ -106,72 +106,45 @@ pre{background:#03050a;border:1px solid var(--bdr);padding:10px;border-radius:6p
   </div>
 
   <div class="card" id="codeCard" style="display:none">
-    <div class="hdr"><span>AI CODE STUDIO</span><button class="btn" onclick="runCodeSnippet()">▶ RUN / PREVIEW</button></div>
+    <div class="hdr"><span>AI CODE STUDIO</span><button class="btn" onclick="runCodeSnippet()">▶ PREVIEW</button></div>
     <pre id="codeSnippet">No code generated yet.</pre>
   </div>
 
-  <div class="card">
-    <div class="hdr"><span>ACTIVE TASKS</span><span id="tCnt">0 QUEUED</span></div>
-    <ul id="tList"></ul>
-  </div>
-
-  <div class="card">
-    <div class="hdr">
-      <span id="rTitle">NOTES & RESEARCH</span>
-      <button class="btn" style="padding:3px 8px;font-size:0.6rem" onclick="copyNotes()">📋 COPY</button>
-    </div>
-    <ul id="rList"><li>Ask E.V. for research, notes, or code.</li></ul>
-  </div>
-
-  <div class="card">
-    <div class="hdr"><span>PERSONAL MEMORY BANK</span><span>PERSISTENT</span></div>
-    <ul id="mList"></ul>
-  </div>
+  <div class="card"><div class="hdr"><span>ACTIVE TASKS</span><span id="tCnt">0 QUEUED</span></div><ul id="tList"></ul></div>
+  <div class="card"><div class="hdr"><span id="rTitle">NOTES & RESEARCH</span><button class="btn" style="padding:3px 8px;font-size:0.6rem" onclick="copyNotes()">📋 COPY</button></div><ul id="rList"><li>Ask E.V. for research or code.</li></ul></div>
+  <div class="card"><div class="hdr"><span>PERSONAL MEMORY BANK</span><span>PERSISTENT</span></div><ul id="mList"></ul></div>
 </main>
 
-<script>
-// PWA Install Prompt Capture
-let deferredPrompt;
-window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-  document.getElementById('installBtn').style.display = 'block';
-});
-
-async function installApp() {
-  if (deferredPrompt) {
-    deferredPrompt.prompt();
-    const { outcome } = await deferredPrompt.userChoice;
-    if (outcome === 'accepted') {
-      document.getElementById('installBtn').style.display = 'none';
-    }
-    deferredPrompt = null;
-  } else {
-    alert("To install, tap Chrome's three dots (⋮) in the top-right corner and select 'Install app' or 'Add to Home screen'.");
-  }
-}
-
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js').catch(() => {});
-}
+<div id="evBubble" class="ev-bubble" onclick="openMentor()">E.V.</div>
+<div id="mentorModal" class="mentor-modal" onclick="if(event.target===this)closeMentor()">
+  <div class="mentor-sheet">
+    <div class="hdr"><span>AI CODING MENTOR</span><button class="btn btn-red" onclick="closeMentor()">✕</button></div>
+    <div style="font-size:0.85rem;color:#8ab4d8">Select mentoring action:</div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap">
+      <button class="chip" onclick="mentorAction('Debug this code/error:')">🐛 Debug</button>
+      <button class="chip" onclick="mentorAction('Explain this snippet:')">📖 Explain</button>
+      <button class="chip" onclick="mentorAction('Architect feature plan for:')">🏗️ Architect</button>
+    </div>
+    <input type="text" id="mentorIn" placeholder="Describe coding task..." onkeydown="if(event.key==='Enter')sendMentor()" />
+    <button class="btn" onclick="sendMentor()">ASK MENTOR</button>
+  </div>
+        </div>
+    <script>
+let defP;window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();defP=e;document.getElementById('installBtn').style.display='block';});
+async function installApp(){if(defP){defP.prompt();defP=null;}}
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
 
 const getS=(k,f)=>{try{const v=localStorage.getItem(k);return v?JSON.parse(v):f}catch(e){return f}};
 const setS=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
 
-let KEY=getS('ev_k',''),USER_NAME=getS('ev_name','Aarav'),tasks=getS('ev_t',['Hit the gym']),mems=getS('ev_m',['Builds projects on mobile']),resItems=[],chatHist=[],isMuted=false,voiceRate=getS('ev_rate',1.05),wTimer=null,rec=null,chunks=[],isRec=false,whisperMdl='whisper-large-v3-turbo',batLevel='Unknown',lastCode='';
+let KEY=getS('ev_k',''),USER_NAME=getS('ev_name','Aarav'),tasks=getS('ev_t',['Hit the gym']),mems=getS('ev_m',['Builds projects on mobile']),resItems=[],chatHist=[],isMuted=false,voiceRate=getS('ev_rate',1.05),wTimer=null,rec=null,chunks=[],isRec=false,whisperMdl='whisper-large-v3-turbo',batLevel='Unknown',lastCode='',bubbleHidden=getS('ev_bubble_hidden',false);
 
 function updateClock(){
-  const now=new Date();
-  document.getElementById('clockTxt').textContent=now.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})+' • '+now.toLocaleDateString([],{weekday:'short',month:'short',day:'numeric'});
+  const n=new Date();document.getElementById('clockTxt').textContent=n.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
 }
 setInterval(updateClock,1000);updateClock();
 
-if(navigator.getBattery){
-  navigator.getBattery().then(b=>{
-    const u=()=>{batLevel=Math.round(b.level*100)+'%';document.getElementById('batTxt').textContent=`🔋 ${batLevel}`;};
-    u();b.onlevelchange=u;
-  });
-}
+if(navigator.getBattery){navigator.getBattery().then(b=>{batLevel=Math.round(b.level*100)+'%';document.getElementById('batTxt').textContent=`🔋 ${batLevel}`;});}
 
 async function loadModels(){
   if(!KEY)return;
@@ -180,88 +153,83 @@ async function loadModels(){
     const d=await r.json();if(!d.data)return;
     const all=d.data.map(m=>m.id);
     const w=all.find(id=>id.includes('whisper'));if(w)whisperMdl=w;
-    const chat=all.filter(id=>!id.includes('whisper')&&!id.includes('guard')&&!id.includes('tts')&&!id.includes('vision'));
-    const pref=['llama-3.1-8b-instant','llama3-70b-8192','llama3-8b-8192','gemma2-9b-it'];
-    chat.sort((a,b)=>(pref.indexOf(a)===-1?99:pref.indexOf(a))-(pref.indexOf(b)===-1?99:pref.indexOf(b)));
+    const chat=all.filter(id=>!id.includes('whisper')&&!id.includes('guard'));
     if(chat.length)document.getElementById('mdlSel').innerHTML=chat.map(m=>`<option value="${m}">${m}</option>`).join('');
   }catch(e){}
 }
 
 function init(){
-  document.getElementById('nameIn').value=USER_NAME;
-  document.getElementById('rateIn').value=voiceRate;
+  document.getElementById('nameIn').value=USER_NAME;document.getElementById('rateIn').value=voiceRate;
   document.getElementById('usrGreeting').textContent='USER: '+USER_NAME.toUpperCase();
-  if(KEY){
-    document.getElementById('keyIn').value=KEY;
-    document.getElementById('evTxt').textContent=`Welcome back, ${USER_NAME}. E.V. OS is online.`;
-    loadModels();
-  }else{
-    document.getElementById('keyBar').style.display='flex';
-  }
+  applyBubbleState();
+  if(KEY){document.getElementById('keyIn').value=KEY;document.getElementById('evTxt').textContent=`Welcome back, ${USER_NAME}.`;loadModels();}
+  else{document.getElementById('keyBar').style.display='flex';}
   render();
 }
 
 function toggleKey(){const b=document.getElementById('keyBar');b.style.display=b.style.display==='none'?'flex':'none';}
 function toggleMute(){isMuted=!isMuted;document.getElementById('muteBtn').textContent=isMuted?'🔇':'🔊';if(isMuted)window.speechSynthesis.cancel();}
 
+function toggleBubblePref(){
+  bubbleHidden=!bubbleHidden;setS('ev_bubble_hidden',bubbleHidden);applyBubbleState();
+}
+function applyBubbleState(){
+  const b=document.getElementById('evBubble'),btn=document.getElementById('bubbleToggleBtn');
+  if(bubbleHidden){b.style.display='none';btn.textContent='DISABLED';btn.style.borderColor='var(--red)';}
+  else{b.style.display='flex';btn.textContent='ENABLED';btn.style.borderColor='var(--green)';}
+}
+
 function saveConfig(){
-  const n=document.getElementById('nameIn').value.trim()||'Aarav';
-  const v=document.getElementById('keyIn').value.trim();
+  const n=document.getElementById('nameIn').value.trim()||'Aarav',v=document.getElementById('keyIn').value.trim();
   voiceRate=parseFloat(document.getElementById('rateIn').value);
   USER_NAME=n;setS('ev_name',USER_NAME);setS('ev_rate',voiceRate);
   document.getElementById('usrGreeting').textContent='USER: '+USER_NAME.toUpperCase();
-  if(!v.startsWith('gsk_')){document.getElementById('evTxt').textContent='⚠️ Groq Key must start with gsk_';return;}
+  if(!v.startsWith('gsk_')){document.getElementById('evTxt').textContent='⚠️ Key must start with gsk_';return;}
   KEY=v;setS('ev_k',KEY);document.getElementById('keyBar').style.display='none';
-  document.getElementById('evTxt').textContent=`✅ Settings saved for ${USER_NAME}.`;
-  loadModels();
+  document.getElementById('evTxt').textContent=`✅ Saved for ${USER_NAME}.`;loadModels();
 }
 
 function exportData(){
-  const data={tasks,mems,chatHist};
-  const blob=new Blob([JSON.stringify(data,null,2)],{type:'json'});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');a.href=url;a.download='ev-backup.json';a.click();
-}
-
-async function fetchLiveSearch(query){
-  try{return `Live Web Context for "${query}": Recent results show active tech updates as of 2026.`;}catch(e){return '';}
+  const blob=new Blob([JSON.stringify({tasks,mems,chatHist},null,2)],{type:'json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='ev-backup.json';a.click();
 }
 
 function render(){
   document.getElementById('tCnt').textContent=tasks.length+' ACTIVE';
   document.getElementById('tList').innerHTML=tasks.map((t,i)=>`<li><span>⚡ ${t}</span><button class="del" onclick="delT(${i})">✓</button></li>`).join('')||'<li>All tasks completed.</li>';
-  document.getElementById('mList').innerHTML=mems.map((m,i)=>`<li><span>🧠 ${m}</span><button class="del" onclick="delM(${i})">✕</button></li>`).join('')||'<li>No memories stored yet.</li>';
+  document.getElementById('mList').innerHTML=mems.map((m,i)=>`<li><span>🧠 ${m}</span><button class="del" onclick="delM(${i})">✕</button></li>`).join('')||'<li>No memories.</li>';
   if(resItems.length)document.getElementById('rList').innerHTML=resItems.map((r,i)=>`<li><span>${i+1}. ${r}</span></li>`).join('');
 }
 
 function delT(i){tasks.splice(i,1);setS('ev_t',tasks);render();}
 function delM(i){mems.splice(i,1);setS('ev_m',mems);render();}
-function clearChat(){chatHist=[];document.getElementById('evTxt').textContent='Conversation history cleared.';}
-function copyNotes(){
-  if(!resItems.length)return;
-  navigator.clipboard.writeText(resItems.join('\n'));
-  document.getElementById('evTxt').textContent='📋 Notes copied to clipboard!';
-}
-function runCodeSnippet(){
-  if(!lastCode)return;
-  const w=window.open();w.document.write(lastCode);w.document.close();
-}
+function clearChat(){chatHist=[];document.getElementById('evTxt').textContent='Cleared.';}
+function copyNotes(){if(resItems.length){navigator.clipboard.writeText(resItems.join('\n'));document.getElementById('evTxt').textContent='📋 Copied!';}}
+function runCodeSnippet(){if(lastCode){const w=window.open();w.document.write(lastCode);w.document.close();}}
 
 function setOrb(s){
   document.getElementById('stTxt').textContent=s;document.getElementById('orbLbl').textContent=s;
   const r=document.getElementById('ring'),bs=document.querySelectorAll('.bar');clearInterval(wTimer);
   if(s==='LISTENING'||s==='THINKING'||s==='SPEAKING'){
     r.classList.add('active');
-    wTimer=setInterval(()=>bs.forEach(b=>{b.style.height=(Math.random()*30+6)+'px';b.style.background=s==='LISTENING'?'#ff1e42':'#00d2ff';}),100);
-  }else{
-    r.classList.remove('active');bs.forEach(b=>{b.style.height='8px';b.style.background='#00d2ff';});
-  }
+    wTimer=setInterval(()=>bs.forEach(b=>{b.style.height=(Math.random()*28+6)+'px';b.style.background=s==='LISTENING'?'#ff1e42':'#00d2ff';}),100);
+  }else{r.classList.remove('active');bs.forEach(b=>{b.style.height='8px';b.style.background='#00d2ff';});}
 }
 
 function quickAsk(q){document.getElementById('usrTxt').textContent=`"${q}"`;askEV(q);}
-function sendTxt(){
-  const i=document.getElementById('txtIn'),t=i.value.trim();if(!t)return;
-  i.value='';document.getElementById('usrTxt').textContent=`"${t}"`;askEV(t);
+function sendTxt(){const i=document.getElementById('txtIn'),t=i.value.trim();if(!t)return;i.value='';document.getElementById('usrTxt').textContent=`"${t}"`;askEV(t);}
+
+const bbl=document.getElementById('evBubble');let sx=0,sy=0,dragging=false;
+bbl.addEventListener('touchstart',e=>{dragging=true;sx=e.touches[0].clientX-bbl.offsetLeft;sy=e.touches[0].clientY-bbl.offsetTop;});
+window.addEventListener('touchmove',e=>{if(!dragging)return;bbl.style.left=(e.touches[0].clientX-sx)+'px';bbl.style.top=(e.touches[0].clientY-sy)+'px';bbl.style.bottom='auto';bbl.style.right='auto';});
+window.addEventListener('touchend',()=>dragging=false);
+
+function openMentor(){document.getElementById('mentorModal').style.display='flex';}
+function closeMentor(){document.getElementById('mentorModal').style.display='none';}
+function mentorAction(p){document.getElementById('mentorIn').value=p+' ';}
+function sendMentor(){
+  const t=document.getElementById('mentorIn').value.trim();if(!t)return;
+  closeMentor();document.getElementById('usrTxt').textContent=`[Mentor] "${t}"`;askEV(t);
 }
 
 async function micClick(){
@@ -271,103 +239,47 @@ async function micClick(){
   try{
     const st=await navigator.mediaDevices.getUserMedia({audio:true});
     chunks=[];rec=new MediaRecorder(st);
-    rec.ondataavailable=e=>{if(e.data.size>0)chunks.push(e.data);};
+    rec.ondataavailable=e=>chunks.push(e.data);
     rec.onstop=async()=>{
-      st.getTracks().forEach(t=>t.stop());setOrb('THINKING');document.getElementById('evTxt').textContent='Transcribing audio...';
+      st.getTracks().forEach(t=>t.stop());setOrb('THINKING');document.getElementById('evTxt').textContent='Transcribing...';
       const fd=new FormData();fd.append('file',new Blob(chunks,{type:'audio/webm'}),'v.webm');fd.append('model',whisperMdl);
       try{
         const r=await fetch('https://api.groq.com/openai/v1/audio/transcriptions',{method:'POST',headers:{'Authorization':`Bearer ${KEY}`},body:fd});
-        const d=await r.json();
-        if(d.text){document.getElementById('usrTxt').textContent=`"${d.text.trim()}"`;askEV(d.text.trim());}
-        else{setOrb('ONLINE');document.getElementById('evTxt').textContent='Did not catch any speech.';}
-      }catch(e){setOrb('ONLINE');document.getElementById('evTxt').textContent='Mic Error: '+e.message;}
+        const d=await r.json();if(d.text){document.getElementById('usrTxt').textContent=`"${d.text.trim()}"`;askEV(d.text.trim());}
+        else{setOrb('ONLINE');document.getElementById('evTxt').textContent='No speech.';}
+      }catch(e){setOrb('ONLINE');document.getElementById('evTxt').textContent='Mic Error';}
     };
     rec.start();isRec=true;btn.classList.add('listening');btn.textContent='⏹️ STOP';setOrb('LISTENING');
-    document.getElementById('evTxt').textContent='Listening... Tap ⏹️ STOP when finished.';
-  }catch(e){document.getElementById('evTxt').textContent='⚠️ Allow microphone access in Chrome.';}
+  }catch(e){document.getElementById('evTxt').textContent='⚠️ Mic denied.';}
 }
 
 async function askEV(p){
   if(!KEY){toggleKey();return;}
   setOrb('THINKING');document.getElementById('evTxt').textContent='Thinking...';
   const mdl=document.getElementById('mdlSel').value||'llama-3.1-8b-instant';
-  const nowStr=new Date().toLocaleString();
-
-  let webContext="";
-  if(p.toLowerCase().includes('search')||p.toLowerCase().includes('news')||p.toLowerCase().includes('latest')){
-    webContext=`\n[Live Web Search Context]: ${await fetchLiveSearch(p)}`;
-  }
-
-  const sys=`You are E.V., an elite personal AI operating system built exclusively for ${USER_NAME}. 
-Current Local Time: ${nowStr} | Battery: ${batLevel}${webContext}
-Active Tasks: ${JSON.stringify(tasks)}
-Memory Bank: ${JSON.stringify(mems)}
-
-Reply ONLY with a valid JSON object matching this exact structure (no markdown, no backticks):
-{
-  "spoken_reply": "Your natural, helpful response to ${USER_NAME} (1-3 sentences)",
-  "new_task": null,
-  "completed_task": null,
-  "new_memory": null,
-  "research_title": null,
-  "research_items": [],
-  "code_snippet": null
-}`;
-
-  const msgs=[{role:'system',content:sys},...chatHist.slice(-6),{role:'user',content:p}];
-
+  const sys=`You are E.V., elite AI OS for ${USER_NAME}. Time: ${new Date().toLocaleString()} | Battery: ${batLevel}\nTasks: ${JSON.stringify(tasks)}\nMemory: ${JSON.stringify(mems)}\nReply ONLY valid JSON: {"spoken_reply":"...", "new_task":null, "completed_task":null, "new_memory":null, "research_title":null, "research_items":[], "code_snippet":null}`;
   try{
-    const r=await fetch('https://api.groq.com/openai/v1/chat/completions',{
-      method:'POST',headers:{'Authorization':`Bearer ${KEY}`,'Content-Type':'application/json'},
-      body:JSON.stringify({model:mdl,messages:msgs,temperature:0.5})
-    });
+    const r=await fetch('https://api.groq.com/openai/v1/chat/completions',{method:'POST',headers:{'Authorization':`Bearer ${KEY}`,'Content-Type':'application/json'},body:JSON.stringify({model:mdl,messages:[{role:'system',content:sys},...chatHist.slice(-6),{role:'user',content:p}],temperature:0.5})});
     const d=await r.json();if(!r.ok)throw new Error(d.error?.message||'API Error');
-    let raw=d.choices[0].message.content.trim();
-    const sIdx=raw.indexOf('{'),eIdx=raw.lastIndexOf('}');
-    let res={spoken_reply:raw};
-    if(sIdx!==-1&&eIdx!==-1){try{res=JSON.parse(raw.slice(sIdx,eIdx+1));}catch(e){}}
-
+    let raw=d.choices[0].message.content.trim(),res={spoken_reply:raw};
+    const s=raw.indexOf('{'),e=raw.lastIndexOf('}');
+    if(s!==-1&&e!==-1){try{res=JSON.parse(raw.slice(s,e+1));}catch(err){}}
     if(res.new_task){tasks.unshift(res.new_task);setS('ev_t',tasks);}
     if(res.completed_task){tasks=tasks.filter(t=>t.toLowerCase()!==res.completed_task.toLowerCase());setS('ev_t',tasks);}
     if(res.new_memory){mems.unshift(res.new_memory);setS('ev_m',mems);}
-    if(res.research_items?.length){
-      resItems=res.research_items;
-      if(res.research_title)document.getElementById('rTitle').textContent=res.research_title.toUpperCase();
-    }
-    if(res.code_snippet){
-      lastCode=res.code_snippet;
-      document.getElementById('codeSnippet').textContent=lastCode;
-      document.getElementById('codeCard').style.display='block';
-    }
-
+    if(res.research_items?.length){resItems=res.research_items;if(res.research_title)document.getElementById('rTitle').textContent=res.research_title.toUpperCase();}
+    if(res.code_snippet){lastCode=res.code_snippet;document.getElementById('codeSnippet').textContent=lastCode;document.getElementById('codeCard').style.display='block';}
     const rep=res.spoken_reply||'Done.';
     chatHist.push({role:'user',content:p},{role:'assistant',content:rep});
-    render();
-    document.getElementById('evTxt').textContent=rep;
-    speak(rep);
+    render();document.getElementById('evTxt').textContent=rep;speak(rep);
   }catch(e){setOrb('ONLINE');document.getElementById('evTxt').textContent='❌ '+e.message;}
 }
 
 function speak(t){
   if(isMuted||!('speechSynthesis' in window)){setOrb('ONLINE');return;}
-  try{
-    window.speechSynthesis.cancel();
-    const u=new SpeechSynthesisUtterance(t);u.rate=voiceRate;u.pitch=1.02;
-    u.onstart=()=>setOrb('SPEAKING');u.onend=()=>setOrb('ONLINE');u.onerror=()=>setOrb('ONLINE');
-    window.speechSynthesis.speak(u);
-  }catch(e){setOrb('ONLINE');}
+  try{window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.rate=voiceRate;u.onstart=()=>setOrb('SPEAKING');u.onend=()=>setOrb('ONLINE');window.speechSynthesis.speak(u);}catch(e){setOrb('ONLINE');}
 }
 init();
 </script>
-  <script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('./sw.js')
-        .then((reg) => console.log('E.V. Service Worker registered successfully!', reg))
-        .catch((err) => console.log('Service Worker registration failed:', err));
-    });
-  }
-  </script>
 </body>
-  </html>
-  
+</html>
